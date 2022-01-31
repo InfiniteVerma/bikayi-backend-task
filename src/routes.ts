@@ -2,7 +2,8 @@ import {Router} from 'express';
 import {addCustomer} from './middlewares/addcust';
 import {addOrder} from './middlewares/addorder';
 import {addShipping} from './middlewares/addshipping';
-import {custWithOrders} from './middlewares/custWithOrders';
+import {custWithOrders} from './middlewares/custOrders';
+import { custWithOrdersAndShipment } from './middlewares/custOrdersShipments';
 import {filterCity} from './middlewares/filtercity';
 const router = Router();
 
@@ -71,6 +72,13 @@ router.get('/shipping/:city', filterCity, (req, res) => {
  *
  */
 router.get('/allorders', custWithOrders, (req, res) => {
+  res.status(200).json(res.locals.data);
+});
+
+/**
+ *
+ */
+router.get('/alldetails', custWithOrdersAndShipment, (req, res) => {
   res.status(200).json(res.locals.data);
 });
 
