@@ -1,7 +1,8 @@
 import {Router} from 'express';
 import {addCustomer} from './middlewares/addcust';
 import {addOrder} from './middlewares/addorder';
-import { addShipping } from './middlewares/addshipping';
+import {addShipping} from './middlewares/addshipping';
+import {filterCity} from './middlewares/filtercity';
 const router = Router();
 
 /**
@@ -18,7 +19,8 @@ router.post(
   },
   addCustomer,
   (req, res) => {
-    res.status(201).json({msg: 'New customer added'});
+    console.log(res.locals.data);
+    res.status(201).json(res.locals.data);
   },
 );
 
@@ -35,7 +37,7 @@ router.post(
   },
   addOrder,
   (req, res) => {
-    res.status(201).json({msg: 'New Order added'});
+    res.status(201).json(res.locals.data);
   },
 );
 
@@ -55,5 +57,13 @@ router.post(
     res.status(201).json({msg: 'New Shipping added'});
   },
 );
+
+/**
+ *
+ */
+router.get('/shipping/:city', filterCity, (req, res) => {
+  const data = res.locals.data;
+  res.status(200).json({data: data});
+});
 
 export {router};

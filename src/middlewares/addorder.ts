@@ -15,13 +15,10 @@ const addOrder: RequestHandler = async (req, res, next) => {
       throw new Error('No such customer exists');
     }
 
-    console.log(cust);
-    console.log(order);
-
     // save order
     const newOrder = new OrderModel({...order, purchaseOrderID: uuidV4()});
 
-    await newOrder.save();
+    res.locals.data = await newOrder.save();
   } catch (e) {
     return res.status(500).json({msg: e.message});
   }
