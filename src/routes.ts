@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import {addCustomer} from './middlewares/addcust';
 import {addOrder} from './middlewares/addorder';
+import { addShipping } from './middlewares/addshipping';
 const router = Router();
 
 /**
@@ -35,6 +36,23 @@ router.post(
   addOrder,
   (req, res) => {
     res.status(201).json({msg: 'New Order added'});
+  },
+);
+
+/**
+ *
+ */
+router.post(
+  '/shipping',
+  (req, res, next) => {
+    if (!req.body.shipping) {
+      return res.status(400).json({msg: 'Missing shipping body'});
+    }
+    next();
+  },
+  addShipping,
+  (req, res) => {
+    res.status(201).json({msg: 'New Shipping added'});
   },
 );
 

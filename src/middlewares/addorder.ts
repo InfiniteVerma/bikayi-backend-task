@@ -18,15 +18,10 @@ const addOrder: RequestHandler = async (req, res, next) => {
     console.log(cust);
     console.log(order);
 
-    // // check pricing mrp
-    // if(order.pricing>order.mrp){
-    //     thro
-    // }
-
     // save order
     const newOrder = new OrderModel({...order, purchaseOrderID: uuidV4()});
 
-    const x = await newOrder.save();
+    await newOrder.save();
   } catch (e) {
     return res.status(500).json({msg: e.message});
   }

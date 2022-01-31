@@ -14,7 +14,7 @@ if (!process.env.PORT) {
 }
 
 // connect to mongodb
-connect('mongodb://localhost:27017/bikaiyi', {
+connect('mongodb://localhost:27017/bikayi', {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useFindAndModify: false,
