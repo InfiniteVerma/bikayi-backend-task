@@ -12,7 +12,7 @@ const addOrder: RequestHandler = async (req, res, next) => {
     const cust = await CustomerModel.findOne({customerID: order.customerID});
 
     if (!cust) {
-      throw new Error('No such customer exists');
+      throw {code: 400, message: 'No such customer exists'};
     }
 
     // save order
@@ -20,7 +20,7 @@ const addOrder: RequestHandler = async (req, res, next) => {
 
     res.locals.data = await newOrder.save();
   } catch (e) {
-    return res.status(500).json({msg: e.message});
+    return res.status(e.code ?? 500).json({msg: e.message});
   }
 
   next();

@@ -17,14 +17,14 @@ const addShipping: RequestHandler = async (req, res, next) => {
     });
 
     if (!order) {
-      return new Error('No such customerID/purchaseOrderID exists');
+      throw {code: 400, message: 'No such customerID/purchaseOrderID exists'};
     }
 
     const newShipping = new ShippingModel({...shipping});
 
     await newShipping.save();
   } catch (e) {
-    return res.status(500).json({msg: e.message});
+    return res.status(e.code ?? 500).json({msg: e.message});
   }
 
   next();
