@@ -22,7 +22,7 @@ const addShipping: RequestHandler = async (req, res, next) => {
 
     const newShipping = new ShippingModel({...shipping});
 
-    await newShipping.save();
+    res.locals.data = await newShipping.save();
   } catch (e) {
     return res.status(e.code ?? 500).json({msg: e.message});
   }

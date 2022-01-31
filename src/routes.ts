@@ -58,7 +58,7 @@ router.post(
   },
   addShipping,
   (req, res) => {
-    res.status(201).json({msg: 'New Shipping added'});
+    res.status(201).json(res.locals.data);
   },
 );
 
