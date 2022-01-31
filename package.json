@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
-    "build": "tsc --target tsconfig.json",
+    "build": "tsc --project tsconfig.json",
     "start": "cd dist/ && node src/index.js",
     "lint": "eslint src/* models/* --fix",
     "clean": "rm -rf dist/"
