@@ -3,13 +3,12 @@ import {addCustomer} from './middlewares/addcust';
 import {addOrder} from './middlewares/addorder';
 import {addShipping} from './middlewares/addshipping';
 import {custWithOrders} from './middlewares/custOrders';
-import { custWithOrdersAndShipment } from './middlewares/custOrdersShipments';
+import {custWithOrdersAndShipment} from './middlewares/custOrdersShipments';
 import {filterCity} from './middlewares/filtercity';
 const router = Router();
 
 /**
- *
- *
+ * Creates a new customer
  */
 router.post(
   '/customer',
@@ -21,13 +20,14 @@ router.post(
   },
   addCustomer,
   (req, res) => {
-    console.log(res.locals.data);
     res.status(201).json(res.locals.data);
   },
 );
 
 /**
- *
+ * Creates a new order
+ * 1. customerID is checked first
+ * 2. new order document is created
  */
 router.post(
   '/order',
@@ -44,7 +44,9 @@ router.post(
 );
 
 /**
- *
+ * Creates new shipping entry
+ * 1. customerID and purchaseOrderID is checked
+ * 2. new shipping document is created
  */
 router.post(
   '/shipping',
@@ -61,22 +63,22 @@ router.post(
 );
 
 /**
- *
+ * Searches for shipping orders with the city send in along with the request
+ * Returns empty array if no shipping exists
  */
 router.get('/shipping/:city', filterCity, (req, res) => {
-  const data = res.locals.data;
-  res.status(200).json({data: data});
+  res.status(200).json(res.locals.data);
 });
 
 /**
- *
+ * Returns customers with all of their purchase orders
  */
 router.get('/allorders', custWithOrders, (req, res) => {
   res.status(200).json(res.locals.data);
 });
 
 /**
- *
+ * Returns customer with their order and shipping details
  */
 router.get('/alldetails', custWithOrdersAndShipment, (req, res) => {
   res.status(200).json(res.locals.data);

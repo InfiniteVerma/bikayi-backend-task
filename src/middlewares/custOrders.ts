@@ -1,6 +1,11 @@
 import {RequestHandler} from 'express';
 import {OrderModel} from '../models/order';
 
+// 1. Orders are grouped by customerID
+// 2. Left joined by customer data (lookup)
+// 3. The customer array is unwinded into single object
+// 4. Fields from customer object is put in root
+// 5. customer object is removed from projection
 const QUERY = [
   {
     $group: {
