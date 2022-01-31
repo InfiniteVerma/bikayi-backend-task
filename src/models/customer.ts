@@ -10,6 +10,7 @@ const schema = new Schema<Customer>({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
 
   mobile: {
